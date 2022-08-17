@@ -20,10 +20,11 @@ namespace ProductsAPI.Models
         public int Stock { get; set; }
         public string Brand { get; set; } = null!;
         public string Category { get; set; } = null!;
-        public string Thumbnail { get; set; } = null!;
-        public string[] Images { get; set; } = null!;
+        public string? Thumbnail { get; set; } = null!;
+        public string[]? Images { get; set; } = null!;
         //public Carted? Carted { get; set; }
     }
+
 
     public class Carted
     {

@@ -52,9 +52,9 @@ public class ProductsService
 
     public async Task CreateProductAsync(Product newProduct) => await _productsCollection.InsertOneAsync(newProduct);
 
-    public async Task UpdateProductAsync(string id, Product updatedProduct) => await _productsCollection.ReplaceOneAsync(x => x.Id == id, updatedProduct);
+    public async Task<ReplaceOneResult> UpdateProductAsync(string id, Product updatedProduct) => await _productsCollection.ReplaceOneAsync(x => x.Id == id, updatedProduct);
 
-    public async Task RemoveProductAsync(string id) => await _productsCollection.DeleteOneAsync(x => x.Id == id);
+    public async Task<DeleteResult> RemoveProductAsync(string id) => await _productsCollection.DeleteOneAsync(x => x.Id == id);
 
     // carts methods
     public async Task<List<Cart>> GetCartsAsync() => await _cartsCollection.Find(_ => true).ToListAsync();

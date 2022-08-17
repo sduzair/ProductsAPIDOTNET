@@ -32,13 +32,17 @@ public class CartsController : ControllerBase
             {
                 Expires = DateTime.Now.AddMilliseconds(1000 * 60 * 60 * 24)
             };
+#pragma warning disable CS8604 // Possible null reference argument.
             Response.Cookies.Append("sessionId", NewCart.SessionId, option);
+#pragma warning restore CS8604 // Possible null reference argument.
         }
         //Console.WriteLine("Getting cart from session Id:");
         //Console.WriteLine(sessionId);
         //Console.WriteLine("Response:");
+#pragma warning disable CS8604 // Possible null reference argument.
         var res = await _productsService.GetCartAsync(sessionId);
-        //Console.WriteLine(res.ToString());
+#pragma warning restore CS8604 // Possible null reference argument.
+                              //Console.WriteLine(res.ToString());
         return res;
     }
 
@@ -66,7 +70,9 @@ public class CartsController : ControllerBase
         {
             return BadRequest("No session");
         }
+#pragma warning disable CS0612 // Type or member is obsolete
         var res = await _productsService.RemoveOneProduct(SessionId, p);
+#pragma warning restore CS0612 // Type or member is obsolete
         return Ok(res);
     }
 
@@ -78,6 +84,7 @@ public class CartsController : ControllerBase
         {
             return BadRequest("No session");
         }
+        if (p.Id == null) return BadRequest();
         var res = await _productsService.RemoveAllProductsOfOneType(SessionId, p.Id);
         return Ok(res);
     }

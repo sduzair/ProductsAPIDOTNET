@@ -32,11 +32,22 @@ public class ProductsController : ControllerBase
     {
         return await _productsService.GetProductAsync(id);
     }
-    //[HttpGet("{category}")]
-    //public async Task<List<Product>> GetByCategory(string category, int limit = 10, string sort = "id", int sortDirection = 1, int skip = 0)
-    //{
-    //    return await _productsService.GetProductsByCategoryAsync(category, limit, sort, sortDirection, skip);
-    //}
-    //create cart
-    //add product to cart
+    [HttpPost]
+    public async Task NewProduct([FromBody] Product p)
+    {
+        await _productsService.CreateProductAsync(p);
+        //return Ok();
+    }
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateProduct(string id, [FromBody] Product updatedProduct)
+    {
+        var result = await _productsService.UpdateProductAsync(id, updatedProduct);
+        return Ok(result);
+    }
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteProduct(string id)
+    {
+        var result = await _productsService.RemoveProductAsync(id);
+        return Ok(result);
+    }
 }
